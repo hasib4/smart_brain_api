@@ -1,8 +1,11 @@
 const express = require('express');
+const bcrypt = require('bcrypt-nodejs');
+const cors = require('cors');
 
 const app = express();
 
 app.use(express.json());
+app.use(cors())
 
 const database = {
     users: [
@@ -21,6 +24,13 @@ const database = {
             password: 'bananas',
             entries: 0,
             joined: new Date()
+        }
+    ],
+    login: [
+        {
+            id: '987',
+            has: '',
+            email: 'john@gmail.com'
         }
     ]
 }
@@ -45,7 +55,6 @@ app.post('/register', (req, res) => {
         id: '125',
         name: name,
         email: email,
-        password: password,
         entries: 0,
         joined: new Date()
     })
@@ -81,6 +90,18 @@ app.put('/image', (req, res) => {
     }
 })
 
-app.listen(3000, () => {
-    console.log('app is running on port 3000');
+
+// bcrypt.hash(password, null, null, function(err, hash) {
+//     console.log(hash);
+// });
+// Load hash from your password DB.
+// bcrypt.compare("icecream", '$2a$10$58IduNXXm/z60S1A3aM.6.2D.xyaen3b/f/aSrdkdCPiQDrNPRcfm', function(err, res) {
+//     console.log('first guess', res)
+// });
+// bcrypt.compare("veggies", '$2a$10$58IduNXXm/z60S1A3aM.6.2D.xyaen3b/f/aSrdkdCPiQDrNPRcfm', function(err, res) {
+//     console.log('second guess', res)
+// });
+
+app.listen(3001, () => {
+    console.log('app is running on port 3001');
 })
